@@ -13,7 +13,7 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "clangd", "rust_analyzer", "texlab", "pyright" },
+        ensure_installed = { "clangd", "rust_analyzer", "texlab", "pyright", "lua_ls" },
         automatic_installation = true,
       })
     end,
@@ -62,6 +62,18 @@ return {
       lspconfig.pyright.setup({
         on_attach = on_attach, capabilities = capabilities,
         settings = { python = { analysis = { typeCheckingMode = "basic" } } },
+      })
+
+      lspconfig.lua_ls.setup({
+        on_attach = on_attach, capabilities = capabilities,
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
+            diagnostics = { globals = { "vim" } },
+            telemetry = { enable = false },
+          },
+        },
       })
 
       -- Julia: requires julia -e 'using Pkg; Pkg.add("LanguageServer")'

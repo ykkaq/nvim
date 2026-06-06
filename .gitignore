@@ -1,0 +1,2 @@
+# Plugins are installed in ~/.local/share/nvim/lazy/ — not tracked here
+/lazy-lock.json
